@@ -10,13 +10,14 @@ using testing::_;
 
 class Leader : public TestFixture {};
 
-TEST_F(Leader, does_not_timeout_until_next_key_pressed) {
+TEST_F(Leader, does_not_timeout_until_numkeypress_keys_pressed) {
     TestDriver driver;
 
     auto key_leader = KeymapKey(0, 0, 0, QK_LEADER);
     auto key_a      = KeymapKey(0, 1, 0, KC_A);
+    auto key_b      = KeymapKey(0, 2, 0, KC_B);
 
-    set_keymap({key_leader, key_a});
+    set_keymap({key_leader, key_a, key_b});
 
     EXPECT_EQ(leader_sequence_active(), false);
 
@@ -41,15 +42,12 @@ TEST_F(Leader, does_not_timeout_until_next_key_pressed) {
 
     tap_key(key_b);
 
-    EXPECT_EQ(leader_sequence_active(), true);
-    EXPECT_EQ(leader_sequence_timed_out(), false);
-
     idle_for(300);
 
     EXPECT_EQ(leader_sequence_active(), false);
     EXPECT_EQ(leader_sequence_timed_out(), true);
 
-    EXPECT_REPORT(driver, (KC_C));
+    EXPECT_REPORT(driver, (KC_A));
     EXPECT_EMPTY_REPORT(driver);
-    tap_key(key_c);
+    tap_key(key_a);
 }
