@@ -84,6 +84,16 @@ To remove the stress this situation produces to your hands, you can disable the 
 
 Now, after you hit the leader key, you will have an infinite amount of time to start the rest of the sequence, allowing you to properly position your hands to type the rest of the sequence comfortably. This way you can configure a very short `LEADER_TIMEOUT`, but still have plenty of time to position your hands.
 
+### Disabling Timeout for aditional keystrokes {#disabling-timeout-more-keystrokes}
+
+Aditionally, you may want to disable the timeout for additional keystrokes after the leader key.
+Add the following to your `config.h`:
+```c
+#define LEADER_NO_TIMEOUT_FOR_N_KEYSTROKES <Number of keystrokes including leader>
+```
+Use with care, since sequences shorter than LEADER_NO_TIMEOUT_FOR_N_KEYSTROKES will not timeout, and thus will not terminate unless leader_end() is called.
+
+
 ### Strict Key Processing {#strict-key-processing}
 
 By default, only the "tap keycode" portions of [Mod-Taps](../mod_tap) and [Layer Taps](../feature_layers#switching-and-toggling-layers) are added to the sequence buffer. This means if you press eg. `LT(3, KC_A)` as part of a sequence, `KC_A` will be added to the buffer, rather than the entire `LT(3, KC_A)` keycode.
@@ -151,21 +161,6 @@ User callback, invoked when the leader sequence begins.
 ### `void leader_end_user(void)` {#api-leader-end-user}
 
 User callback, invoked when the leader sequence ends.
-
----
-
-### `bool leader_add_user(uint16_t keycode)` {#api-leader-add-user}
-
-User callback, invoked when a keycode is added to the leader sequence.
-
-#### Arguments {#api-leader-add-user-arguments}
-
- - `uint16_t keycode`  
-   The keycode to added to the leader sequence.
-
-#### Return Value {#api-leader-add-user-return}
-
-`true` to finish the key sequence, `false` to continue.
 
 ---
 
