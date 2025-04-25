@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 !bluetooth
 !common
 !q3_max
@@ -5,3 +6,15 @@
 !q3
 !q0_max
 !q0
+=======
+<<<<<<< HEAD
+iso_encoder
+=======
+!bluetooth
+!common
+!q3_max
+!q3
+!q0_max
+!q0
+>>>>>>> keychron
+>>>>>>> myrepo/my_kc_qmk
